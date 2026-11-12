@@ -137,8 +137,7 @@ def aircraft_illustration(wingspan, chord):
     left_inner_tip = left_tip + 12
     right_inner_tip = right_tip - 12
 
-    drawing = f
-    """
+    drawing = """
     <rect x="0" y="0" width="500" height="400"
           rx="25" fill="#edf5fb"/>
 
@@ -148,7 +147,7 @@ def aircraft_illustration(wingspan, chord):
     <!-- Left wing -->
     <path d="
         M235 {wing_front}
-        L{left_tip} {wing_front + 12}
+        L{left_tip} {left_front}
         L{left_inner_tip} {wing_back}
         L235 {wing_back}
         Z"
@@ -159,7 +158,7 @@ def aircraft_illustration(wingspan, chord):
     <!-- Right wing -->
     <path d="
         M265 {wing_front}
-        L{right_tip} {wing_front + 12}
+        L{right_tip} {right_front}
         L{right_inner_tip} {wing_back}
         L265 {wing_back}
         Z"
@@ -168,18 +167,18 @@ def aircraft_illustration(wingspan, chord):
         stroke-width="4"/>
 
     <!-- Left wing marking -->
-    <line x1="{left_tip + 20}"
-          y1="{wing_front + 15}"
-          x2="{left_tip + 30}"
-          y2="{wing_back - 10}"
+    <line x1="{left_mark_x1}"
+          y1="{mark_front}"
+          x2="{left_mark_x2}"
+          y2="{mark_back}"
           stroke="#dceaf5"
           stroke-width="4"/>
 
     <!-- Right wing marking -->
-    <line x1="{right_tip - 20}"
-          y1="{wing_front + 15}"
-          x2="{right_tip - 30}"
-          y2="{wing_back - 10}"
+    <line x1="{right_mark_x1}"
+          y1="{mark_front}"
+          x2="{right_mark_x2}"
+          y2="{mark_back}"
           stroke="#dceaf5"
           stroke-width="4"/>
 
@@ -241,7 +240,22 @@ def aircraft_illustration(wingspan, chord):
           fill="#24394b">
         Top View Aircraft Design
     </text>
-    """
+    """.format(
+        wing_front=wing_front,
+        wing_back=wing_back,
+        left_tip=left_tip,
+        right_tip=right_tip,
+        left_inner_tip=left_inner_tip,
+        right_inner_tip=right_inner_tip,
+        left_front=wing_front + 12,
+        right_front=wing_front + 12,
+        left_mark_x1=left_tip + 20,
+        left_mark_x2=left_tip + 30,
+        right_mark_x1=right_tip - 20,
+        right_mark_x2=right_tip - 30,
+        mark_front=wing_front + 15,
+        mark_back=wing_back - 10
+    )
 
     return SVG(
         drawing,
