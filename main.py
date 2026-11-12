@@ -1,7 +1,6 @@
 
 from dataclasses import dataclass, field
 from drafter import *
-from bakery import assert_equal
 
 # -----------------------------
 # WEBSITE RELEASE SETTINGS
@@ -16,9 +15,7 @@ set_site_information(
         "Users can enter aircraft measurements, calculate performance "
         "estimates, and compare saved aircraft designs."
     ),
-    sources=(
-        "Drafter documentation and aircraft design research."
-    ),
+    sources="Drafter documentation and aircraft design research.",
     planning=(
         "The repository includes brainstorming-worksheet.pdf "
         "and design-worksheet.pdf."
@@ -28,13 +25,8 @@ set_site_information(
     ]
 )
 
-# Include the image so it is copied when the website is deployed.
 add_website_file("aircraft-background.jpg")
-
-# Let the website fill the browser window.
 set_website_framed(False)
-
-# Hide the debug panel for the published website.
 hide_debug_information()
 
 
@@ -114,7 +106,6 @@ def calculate_plane(name, wingspan, chord, weight, speed):
         aspect_ratio = 0
 
     lift = 0.5 * 1.225 * (speed ** 2) * wing_area
-
     cg = chord * 0.25
 
     if weight > 0:
@@ -156,7 +147,6 @@ def plane_summary(plane):
 # -----------------------------
 
 def aircraft_illustration(wingspan, chord):
-
     wingspan = safe_float(wingspan)
     chord = safe_float(chord)
 
@@ -244,8 +234,7 @@ def aircraft_illustration(wingspan, chord):
     return SVG(
         drawing,
         width=500,
-        height=400,
-        viewBox="0 0 500 400"
+        height=400
     )
 
 
@@ -448,8 +437,6 @@ def designer(state: State) -> Page:
             "wingspan",
             state.current_plane.get("wingspan", 10.0),
             kind="number",
-            min=0,
-            step="any",
             id="wingspan"
         ),
 
@@ -458,8 +445,6 @@ def designer(state: State) -> Page:
             "chord",
             state.current_plane.get("chord", 1.5),
             kind="number",
-            min=0,
-            step="any",
             id="chord"
         ),
 
@@ -468,8 +453,6 @@ def designer(state: State) -> Page:
             "weight",
             state.current_plane.get("weight", 100.0),
             kind="number",
-            min=0,
-            step="any",
             id="weight"
         ),
 
@@ -478,15 +461,13 @@ def designer(state: State) -> Page:
             "speed",
             state.current_plane.get("speed", 20.0),
             kind="number",
-            min=0,
-            step="any",
             id="speed"
         ),
 
         "\n",
         Button("Update Preview", "update_preview"),
         "\n",
-        Button("Save Aircraft", "save_preview"),
+        Button("Preview and Save Aircraft", "update_preview"),
         "\n",
         Button("Reset Measurements", "reset")
     ]
@@ -660,20 +641,17 @@ def saved_planes(state: State) -> Page:
             )
         )
 
-        # Show all saved aircraft.
         for plane in state.planes:
             content.append(Header(plane.name))
             content.extend(plane_summary(plane))
             content.append(HorizontalRule())
 
-        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
             if plane.score > best_plane.score:
                 best_plane = plane
 
-        # Show which aircraft is best.
         content.append(Header("Best Saved Aircraft"))
 
         content.append(
@@ -691,7 +669,6 @@ def saved_planes(state: State) -> Page:
             )
         )
 
-        # Explain the two parts of the score.
         aspect_points = best_plane.aspect_ratio * 10
 
         if best_plane.weight > 0:
@@ -802,7 +779,6 @@ def results(state: State) -> Page:
             Paragraph("Compare the scores of your saved aircraft.")
         )
 
-        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
@@ -820,7 +796,6 @@ def results(state: State) -> Page:
             )
 
         content.append(HorizontalRule())
-
         content.append(Header("Highest Design Score"))
 
         content.append(
@@ -946,10 +921,7 @@ def results(state: State) -> Page:
         )
 
         content.append(HorizontalRule())
-
-        content.append(
-            Header("Top Scoring Aircraft Illustration")
-        )
+        content.append(Header("Top Scoring Aircraft Illustration"))
 
         content.append(
             aircraft_illustration(
@@ -971,7 +943,6 @@ def results(state: State) -> Page:
         )
 
         content.append(HorizontalRule())
-
         content.append(Header("Important Note"))
 
         content.append(
