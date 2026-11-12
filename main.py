@@ -4,6 +4,38 @@ from drafter import *
 from bakery import assert_equal
 
 # -----------------------------
+# WEBSITE RELEASE INFORMATION
+# -----------------------------
+
+set_website_title("AeroLab Aircraft Designer")
+
+set_site_information(
+    author="Alex Nichols",
+    description=(
+        "AeroLab is an educational aircraft design application. "
+        "Users can enter aircraft measurements, calculate basic "
+        "aerodynamic estimates, save designs, and compare results."
+    ),
+    sources=(
+        "Drafter documentation: https://drafter-edu.github.io/drafter/ "
+        "and Kerbal Space Program as an example of a vehicle-design tool."
+    ),
+    planning=[
+        "Alex - CS1 Final Project 0_ Pick a Problem.docx",
+        "Alex CS1 Final Project 1_ Design.docx"
+    ],
+    links=[]
+)
+
+# Keep the debug panel visible while developing.
+# Uncomment the next line for your final release.
+# hide_debug_information()
+
+# Let the website use the full browser window.
+set_website_framed(False)
+
+
+# -----------------------------
 # DATA CLASSES
 # -----------------------------
 
@@ -121,7 +153,6 @@ def plane_summary(plane):
 # -----------------------------
 
 def aircraft_illustration(wingspan, chord):
-
     wingspan = safe_float(wingspan)
     chord = safe_float(chord)
 
@@ -625,20 +656,17 @@ def saved_planes(state: State) -> Page:
             )
         )
 
-        # Show all saved aircraft.
         for plane in state.planes:
             content.append(Header(plane.name))
             content.extend(plane_summary(plane))
             content.append(HorizontalRule())
 
-        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
             if plane.score > best_plane.score:
                 best_plane = plane
 
-        # Show which aircraft is best.
         content.append(Header("Best Saved Aircraft"))
 
         content.append(
@@ -656,7 +684,6 @@ def saved_planes(state: State) -> Page:
             )
         )
 
-        # Explain the two parts of the score.
         aspect_points = best_plane.aspect_ratio * 10
 
         if best_plane.weight > 0:
@@ -767,7 +794,6 @@ def results(state: State) -> Page:
             Paragraph("Compare the scores of your saved aircraft.")
         )
 
-        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
@@ -785,7 +811,6 @@ def results(state: State) -> Page:
             )
 
         content.append(HorizontalRule())
-
         content.append(Header("Highest Design Score"))
 
         content.append(
@@ -936,7 +961,6 @@ def results(state: State) -> Page:
         )
 
         content.append(HorizontalRule())
-
         content.append(Header("Important Note"))
 
         content.append(
