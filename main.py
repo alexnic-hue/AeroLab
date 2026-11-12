@@ -283,8 +283,7 @@ def make_page(state, title, content):
     page_content.append(Header(title))
     page_content.extend(content)
 
-    javascript = 
-    """
+    javascript = """
     document.addEventListener("input", function(event) {
         const field = event.target;
 
