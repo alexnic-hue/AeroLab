@@ -137,124 +137,73 @@ def aircraft_illustration(wingspan, chord):
     left_inner_tip = left_tip + 12
     right_inner_tip = right_tip - 12
 
-    drawing = """
-    <rect x="0" y="0" width="500" height="400"
-          rx="25" fill="#edf5fb"/>
+    left_front = wing_front + 12
+    right_front = wing_front + 12
 
-    <circle cx="250" cy="195" r="155"
-            fill="#dceaf5"/>
+    left_mark_x1 = left_tip + 20
+    left_mark_x2 = left_tip + 30
 
-    <!-- Left wing -->
-    <path d="
-        M235 {wing_front}
-        L{left_tip} {left_front}
-        L{left_inner_tip} {wing_back}
-        L235 {wing_back}
-        Z"
-        fill="#287db8"
-        stroke="#17496d"
-        stroke-width="4"/>
+    right_mark_x1 = right_tip - 20
+    right_mark_x2 = right_tip - 30
 
-    <!-- Right wing -->
-    <path d="
-        M265 {wing_front}
-        L{right_tip} {right_front}
-        L{right_inner_tip} {wing_back}
-        L265 {wing_back}
-        Z"
-        fill="#287db8"
-        stroke="#17496d"
-        stroke-width="4"/>
+    mark_front = wing_front + 15
+    mark_back = wing_back - 10
 
-    <!-- Left wing marking -->
-    <line x1="{left_mark_x1}"
-          y1="{mark_front}"
-          x2="{left_mark_x2}"
-          y2="{mark_back}"
-          stroke="#dceaf5"
-          stroke-width="4"/>
+    drawing = (
+        '<rect x="0" y="0" width="500" height="400" '
+        'rx="25" fill="#edf5fb"/>'
 
-    <!-- Right wing marking -->
-    <line x1="{right_mark_x1}"
-          y1="{mark_front}"
-          x2="{right_mark_x2}"
-          y2="{mark_back}"
-          stroke="#dceaf5"
-          stroke-width="4"/>
+        '<circle cx="250" cy="195" r="155" '
+        'fill="#dceaf5"/>'
 
-    <!-- Main fuselage -->
-    <path d="
-        M250 25
-        C230 65 232 110 237 155
-        L238 285
-        L250 345
-        L262 285
-        L263 155
-        C268 110 270 65 250 25 Z"
-        fill="#ffffff"
-        stroke="#24394b"
-        stroke-width="4"/>
+        '<path d="M235 ' + str(wing_front) +
+        ' L' + str(left_tip) + ' ' + str(left_front) +
+        ' L' + str(left_inner_tip) + ' ' + str(wing_back) +
+        ' L235 ' + str(wing_back) +
+        ' Z" fill="#287db8" stroke="#17496d" stroke-width="4"/>'
 
-    <!-- Cockpit -->
-    <path d="
-        M250 45
-        C232 65 240 95 250 105
-        C260 95 268 65 250 45 Z"
-        fill="#38a5d6"
-        stroke="#17496d"
-        stroke-width="3"/>
+        '<path d="M265 ' + str(wing_front) +
+        ' L' + str(right_tip) + ' ' + str(right_front) +
+        ' L' + str(right_inner_tip) + ' ' + str(wing_back) +
+        ' L265 ' + str(wing_back) +
+        ' Z" fill="#287db8" stroke="#17496d" stroke-width="4"/>'
 
-    <!-- Fuselage center line -->
-    <path d="M250 115 L250 310"
-          stroke="#9baab5"
-          stroke-width="2"
-          stroke-dasharray="6 6"/>
+        '<line x1="' + str(left_mark_x1) +
+        '" y1="' + str(mark_front) +
+        '" x2="' + str(left_mark_x2) +
+        '" y2="' + str(mark_back) +
+        '" stroke="#dceaf5" stroke-width="4"/>'
 
-    <!-- Tail left -->
-    <path d="
-        M250 285
-        L180 320
-        L190 345
-        L250 330 Z"
-        fill="#287db8"
-        stroke="#17496d"
-        stroke-width="4"/>
+        '<line x1="' + str(right_mark_x1) +
+        '" y1="' + str(mark_front) +
+        '" x2="' + str(right_mark_x2) +
+        '" y2="' + str(mark_back) +
+        '" stroke="#dceaf5" stroke-width="4"/>'
 
-    <!-- Tail right -->
-    <path d="
-        M250 285
-        L320 320
-        L310 345
-        L250 330 Z"
-        fill="#287db8"
-        stroke="#17496d"
-        stroke-width="4"/>
+        '<path d="M250 25 '
+        'C230 65 232 110 237 155 '
+        'L238 285 L250 345 L262 285 L263 155 '
+        'C268 110 270 65 250 25 Z" '
+        'fill="#ffffff" stroke="#24394b" stroke-width="4"/>'
 
-    <!-- Nose detail -->
-    <circle cx="250" cy="25" r="5" fill="#f29b38"/>
+        '<path d="M250 45 C232 65 240 95 250 105 '
+        'C260 95 268 65 250 45 Z" '
+        'fill="#38a5d6" stroke="#17496d" stroke-width="3"/>'
 
-    <!-- Caption -->
-    <text x="250" y="385"
-          text-anchor="middle"
-          font-size="15"
-          fill="#24394b">
-        Top View Aircraft Design
-    </text>
-    """.format(
-        wing_front=wing_front,
-        wing_back=wing_back,
-        left_tip=left_tip,
-        right_tip=right_tip,
-        left_inner_tip=left_inner_tip,
-        right_inner_tip=right_inner_tip,
-        left_front=wing_front + 12,
-        right_front=wing_front + 12,
-        left_mark_x1=left_tip + 20,
-        left_mark_x2=left_tip + 30,
-        right_mark_x1=right_tip - 20,
-        right_mark_x2=right_tip - 30,
-        mark_front=wing_front + 15,
-        mark_back=wing_back - 10
+        '<path d="M250 115 L250 310" '
+        'stroke="#9baab5" stroke-width="2" stroke-dasharray="6 6"/>'
+
+        '<path d="M250 285 L180 320 L190 345 L250 330 Z" '
+        'fill="#287db8" stroke="#17496d" stroke-width="4"/>'
+
+        '<path d="M250 285 L320 320 L310 345 L250 330 Z" '
+        'fill="#287db8" stroke="#17496d" stroke-width="4"/>'
+
+        '<circle cx="250" cy="25" r="5" fill="#f29b38"/>'
+
+        '<text x="250" y="385" text-anchor="middle" '
+        'font-size="15" fill="#24394b">'
+        'Top View Aircraft Design</text>'
     )
 
     return SVG(
