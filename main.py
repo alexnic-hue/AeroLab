@@ -4,35 +4,38 @@ from drafter import *
 from bakery import assert_equal
 
 # -----------------------------
-# WEBSITE RELEASE INFORMATION
+# WEBSITE RELEASE SETTINGS
 # -----------------------------
 
 set_website_title("AeroLab Aircraft Designer")
 
 set_site_information(
-    author="Alex Nichols",
+    author="Your Name",
     description=(
         "AeroLab is an educational aircraft design application. "
-        "Users can enter aircraft measurements, calculate basic "
-        "aerodynamic estimates, save designs, and compare results."
+        "Users can enter aircraft measurements, calculate performance "
+        "estimates, and compare saved aircraft designs."
     ),
     sources=(
-        "Drafter documentation: https://drafter-edu.github.io/drafter/ "
-        "and Kerbal Space Program as an example of a vehicle-design tool."
+        "Drafter documentation and aircraft design research."
     ),
-    planning=[
-        "Alex - CS1 Final Project 0_ Pick a Problem.docx",
-        "Alex CS1 Final Project 1_ Design.docx"
-    ],
-    links=[]
+    planning=(
+        "The repository includes brainstorming-worksheet.pdf "
+        "and design-worksheet.pdf."
+    ),
+    links=[
+        "https://github.com/alexnic-hue/AeroLab"
+    ]
 )
 
-# Keep the debug panel visible while developing.
-# Uncomment the next line for your final release.
-# hide_debug_information()
+# Include the image so it is copied when the website is deployed.
+add_website_file("aircraft-background.jpg")
 
-# Let the website use the full browser window.
+# Let the website fill the browser window.
 set_website_framed(False)
+
+# Hide the debug panel for the published website.
+hide_debug_information()
 
 
 # -----------------------------
@@ -153,6 +156,7 @@ def plane_summary(plane):
 # -----------------------------
 
 def aircraft_illustration(wingspan, chord):
+
     wingspan = safe_float(wingspan)
     chord = safe_float(chord)
 
@@ -656,17 +660,20 @@ def saved_planes(state: State) -> Page:
             )
         )
 
+        # Show all saved aircraft.
         for plane in state.planes:
             content.append(Header(plane.name))
             content.extend(plane_summary(plane))
             content.append(HorizontalRule())
 
+        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
             if plane.score > best_plane.score:
                 best_plane = plane
 
+        # Show which aircraft is best.
         content.append(Header("Best Saved Aircraft"))
 
         content.append(
@@ -684,6 +691,7 @@ def saved_planes(state: State) -> Page:
             )
         )
 
+        # Explain the two parts of the score.
         aspect_points = best_plane.aspect_ratio * 10
 
         if best_plane.weight > 0:
@@ -794,6 +802,7 @@ def results(state: State) -> Page:
             Paragraph("Compare the scores of your saved aircraft.")
         )
 
+        # Find the aircraft with the highest score.
         best_plane = state.planes[0]
 
         for plane in state.planes:
@@ -811,6 +820,7 @@ def results(state: State) -> Page:
             )
 
         content.append(HorizontalRule())
+
         content.append(Header("Highest Design Score"))
 
         content.append(
@@ -961,6 +971,7 @@ def results(state: State) -> Page:
         )
 
         content.append(HorizontalRule())
+
         content.append(Header("Important Note"))
 
         content.append(
